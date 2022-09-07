@@ -4,8 +4,8 @@ const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
-  dialect: 'mysql',
-  logging: false
+  dialect: 'mysql'
+  // logging: false
 })
 
 const connectDb = async () => {
@@ -20,20 +20,24 @@ const connectDb = async () => {
 const Product = require('./Product')(sequelize)
 const Category = require('./Category')(sequelize)
 const Order = require('./Order')(sequelize)
+const ProductCategorie = require('./ProductCategorie')(sequelize)
+const ProductOrder = require('./ProductOrder')(sequelize)
 
-Product.hasMany(Category)
-Category.belongsToMany(Product, { through: 'products_categories' })
+Product.belongsToMany(Category, { through: ProductCategorie })
+Category.belongsToMany(Product, { through: ProductCategorie })
 
-Order.hasMany(Product)
-Product.belongsToMany(Order, { through: 'products_orders' })
+Order.belongsToMany(Product, { through: ProductOrder })
+Product.belongsToMany(Order, { through: ProductOrder })
 
 sequelize.sync({ alter: true })
 
 connectDb()
 
-module.export = {
+module.exports = {
   sequelize,
   Product,
   Category,
-  Order
+  Order,
+  ProductCategorie,
+  ProductOrder
 }
