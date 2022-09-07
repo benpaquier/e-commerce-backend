@@ -29,7 +29,7 @@ Category.belongsToMany(Product, { through: ProductCategorie })
 Order.belongsToMany(Product, { through: ProductOrder })
 Product.belongsToMany(Order, { through: ProductOrder })
 
-sequelize.sync({ alter: true })
+// sequelize.sync({ alter: true })
 
 connectDb()
 
