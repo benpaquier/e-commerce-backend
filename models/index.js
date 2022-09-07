@@ -17,8 +17,23 @@ const connectDb = async () => {
   }
 }
 
+const Product = require('./Product')(sequelize)
+const Category = require('./Category')(sequelize)
+const Order = require('./Order')(sequelize)
+
+Product.hasMany(Category)
+Category.belongsToMany(Product, { through: 'products_categories' })
+
+Order.hasMany(Product)
+Product.belongsToMany(Order, { through: 'products_orders' })
+
+sequelize.sync({ alter: true })
+
 connectDb()
 
 module.export = {
-  sequelize
+  sequelize,
+  Product,
+  Category,
+  Order
 }
