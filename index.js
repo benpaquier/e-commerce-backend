@@ -4,6 +4,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 
+require('./models')
+
 app.use(express.json())
 app.use(cors(process.env.FRONTEND_URL))
 app.use(morgan('tiny'))
