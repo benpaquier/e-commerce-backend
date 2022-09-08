@@ -17,11 +17,11 @@ const connectDb = async () => {
   }
 }
 
-const Product = require('./Product')(sequelize)
-const Category = require('./Category')(sequelize)
-const Order = require('./Order')(sequelize)
-const ProductCategorie = require('./ProductCategorie')(sequelize)
-const ProductOrder = require('./ProductOrder')(sequelize)
+const Product = require('./product')(sequelize)
+const Category = require('./category')(sequelize)
+const Order = require('./order')(sequelize)
+const ProductCategorie = require('./productCategorie')(sequelize)
+const ProductOrder = require('./productOrder')(sequelize)
 
 Product.belongsToMany(Category, { through: ProductCategorie })
 Category.belongsToMany(Product, { through: ProductCategorie })
