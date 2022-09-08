@@ -13,7 +13,12 @@ app.get('/:id', async (req, res) => {
 
   const categorie = await Category.findOne({
     where: { id },
-    include: Product
+    include: [
+      {
+        model: Product
+      }
+    ],
+    order: [[Product, 'price', 'ASC']]
   })
 
   res.json(categorie)
